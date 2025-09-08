@@ -243,7 +243,7 @@ func TestFormatNumber(t *testing.T) {
 		{16, big().Add(bigUint(0xff), bigFloat("0.5")).SetSignbit(true), "-0xff (truncated from -255.5)"},
 	}
 	for _, tt := range casetests {
-		got := formatNumber(ctx, tt.input, tt.base, 6)
+		got := formatNumber(ctx, tt.input, tt.base, 6, false)
 		if got != tt.want {
 			t.Fatalf("diff: base: %d, input: %v, want: %q, got: %q", tt.base, tt.input, tt.want, got)
 		}

@@ -89,7 +89,7 @@ func stripTrailingDigits(s string, digits int) string {
 
 // formatNumber formats the number using base and decimals. For bases different
 // than 10, non-integer floating numbers are truncated.
-func formatNumber(ctx decimal.Context, n *decimal.Big, base, decimals int) string {
+func formatNumber(ctx decimal.Context, n *decimal.Big, base, decimals int, single bool) string {
 	// Print NaN without suffix numbers.
 	if n.IsNaN(0) {
 		return strings.TrimRight(fmt.Sprint(n), "0123456789")
@@ -137,8 +137,8 @@ func formatNumber(ctx decimal.Context, n *decimal.Big, base, decimals int) strin
 		fmt.Fprintf(buf, "0x%x%s", n64, suffix)
 	default:
 		h := commafWithDigits(n, decimals)
-		// Only print humanized format when it differs from original value.
-		if h != clean {
+		// Only print humanized format when it differs from original value, and not in single-command mode
+		if h != clean && !single {
 			suffix = " (" + h + ")"
 		}
 		buf.WriteString(clean + suffix)

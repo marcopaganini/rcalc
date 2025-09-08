@@ -193,7 +193,7 @@ func calc(stack *stackType, cmd string) error {
 
 		if autoprint {
 			if single {
-				fmt.Println(stack.top()) // plain print to stdout
+				fmt.Println(formatNumber(ctx, stack.top(), ops.base, ops.decimals, true)) // plain print to stdout
 			} else {
 				stack.printTop(ctx, ops.base, ops.decimals) // pretty print to terminal
 			}
